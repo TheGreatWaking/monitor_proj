@@ -17,10 +17,12 @@ int Process::Pid() { return pid; }
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { 
     long ProcJiffies = LinuxParser::ActiveJiffies(pid);
-    long TotJiffies = LinuxParser::ActiveJiffies() + LinuxParser::IdleJiffies();
-    cpu_utiliz = (float)(ProcJiffies - prevProcJiffies) / (TotJiffies - prevTotJiffies);
-    prevTotJiffies = TotJiffies;
-    prevProcJiffies = ProcJiffies;
+    long seconds = LinuxParser::UpTime() - (LinuxParser::UpTime(pid) / sysconf(_SC_CLK_TCK));
+    cpu_utiliz = (float)100 * (ProcJiffies / sysconf(_SC_CLK_TCK) / seconds);
+    //long TotJiffies = LinuxParser::ActiveJiffies() + LinuxParser::IdleJiffies();
+    //cpu_utiliz = (float)(ProcJiffies - prevProcJiffies) / (TotJiffies - prevTotJiffies);
+    //prevTotJiffies = TotJiffies;
+    //prevProcJiffies = ProcJiffies;
     return cpu_utiliz; 
 }
 
