@@ -7,10 +7,10 @@ class Processor {
 
   // TODO: Declare any necessary private members
  private:
-  long prevIdle = 0;
-  long prevNonIdle = 0;
-  long Idle;
-  long NonIdle;
+  long prev_total_ = 0;
+  long prev_total_idle = 0;
+  //long Idle;
+  //long NonIdle;
 };
 
 #endif
