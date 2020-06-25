@@ -7,7 +7,10 @@ using std::string;
 
 // TODO: Return the aggregate CPU utilization
 float Processor::Utilization() { 
-  Idle = LinuxParser::IdleJiffies();
+  float totalTime = LinuxParser::Jiffies();
+  float activeTime = LinuxParser::ActiveJiffies();
+  return 1.0 * (activeTime / totalTime);
+  /*Idle = LinuxParser::IdleJiffies();
   NonIdle = LinuxParser::ActiveJiffies();
   //calculation
   long prevTotal = prevIdle + prevNonIdle;
@@ -18,5 +21,5 @@ float Processor::Utilization() {
   
   prevIdle = Idle;
   prevNonIdle = NonIdle;
-  return (float)(TotalDelta - IdleDelta) / TotalDelta; 
+  return (float)(TotalDelta - IdleDelta) / TotalDelta; */
 }
